@@ -1,0 +1,1 @@
+Código original do frontend publicado da Luma, copiado da implantação atual. Inclui index.html, manifesto PWA, service worker e ícones. Não inclui o código do Worker de IA, que é um serviço separado.
