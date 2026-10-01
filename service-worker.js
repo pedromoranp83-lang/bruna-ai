@@ -1,5 +1,0 @@
-const CACHE_NAME = "bruna-pwa-shell-v7-mic-total";
-const APP_SHELL = ["./","./index.html","./manifest.webmanifest","./icon-192.png","./icon-512.png","./apple-touch-icon.png"];
-self.addEventListener("install", event => { event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL))); self.skipWaiting(); });
-self.addEventListener("activate", event => { event.waitUntil((async()=>{ const keys=await caches.keys(); await Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k))); await self.clients.claim(); })()); });
-self.addEventListener("fetch", event => { const request=event.request, url=new URL(request.url); if(request.method!=="GET"||url.origin!==self.location.origin)return; event.respondWith((async()=>{ try{ const response=await fetch(request,{cache:"no-store"}); if(response&&response.ok){const copy=response.clone(); caches.open(CACHE_NAME).then(c=>c.put(request,copy));} return response; }catch(e){ return (await caches.match(request))||caches.match("./index.html"); } })()); });
